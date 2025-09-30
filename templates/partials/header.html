@@ -1,0 +1,25 @@
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6">
+    <div>
+        <h1 class="text-3xl font-bold mb-1">{{ config.extra.name }}</h1>
+        <h2 class="text-xl text-[var(--primary)] font-semibold mb-2">{{ config.extra.job_title }}</h2>
+        <p class="text-sm opacity-80">{{ config.extra.bio }}</p>
+    </div>
+    <div class="flex flex-col items-end">
+        <div class="flex items-center mb-2">
+            <i class="fas fa-envelope mr-2 text-[var(--primary)]"></i>
+            <span class="text-sm"><a href="mailto:{{ config.extra.email }}">{{ config.extra.email }}</a></span>
+        </div>
+        <div class="flex items-center mb-2">
+            <i class="fas fa-phone mr-2 text-[var(--primary)]"></i>
+            <span class="text-sm">{{ config.extra.phone }}</span>
+        </div>
+        <div class="flex items-center mb-2">
+            <i class="fas fa-map-marker-alt mr-2 text-[var(--primary)]"></i>
+            <span class="text-sm">{{ config.extra.location }}</span>
+        </div>
+        <div class="flex items-center">
+            <i class="fas fa-globe mr-2 text-[var(--primary)]"></i>
+            <span class="text-sm"><a href="{{ config.extra.website }}">{{ config.extra.website | replace(from="https://", to="") }}</a></span>
+        </div>
+    </div>
+</header>

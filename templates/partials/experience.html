@@ -1,0 +1,18 @@
+<section class="resume-section bg-[var(--card)] p-6 rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-4 border-b pb-2 border-[var(--primary)]">Work Experience</h2>
+
+    {% for job in config.extra.experience %}
+    <div {% if not loop.last %}class="mb-6"{% endif %}>
+        <div class="flex justify-between items-start">
+            <h3 class="font-semibold">{{ job.title }}</h3>
+            <span class="text-xs bg-[var(--primary)] text-white px-2 py-1 rounded">{{ job.start_date }} - {{ job.end_date }}</span>
+        </div>
+        <p class="text-sm text-[var(--primary)] mb-2">{{ job.company }}</p>
+        <ul class="list-disc list-inside text-sm space-y-1 pl-2">
+            {% for achievement in job.achievements %}
+            <li>{{ achievement }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</section>

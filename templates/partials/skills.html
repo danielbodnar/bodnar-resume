@@ -1,0 +1,13 @@
+<!-- adjust width if you want to add increase skills percentage -->
+<section class="resume-section bg-[var(--card)] p-6 rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-4 border-b pb-2 border-[var(--primary)]">Skills</h2>
+
+    {% for skill in config.extra.skills %}
+    <div {% if not loop.last %}class="mb-4"{% endif %}>
+        <h3 class="font-semibold text-sm mb-2">{{ skill.name }}</h3>
+        <div class="skill-bar bg-gray-200">
+            <div class="progress bg-[var(--primary)]" style="width: {{ skill.level }}%"></div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
