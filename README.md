@@ -1,10 +1,23 @@
-# BelResumé
+# Bodnar Resume Theme
 
-***A beautiful, modern, and minimal single-page resume site***
+***A heavily modified fork of BelResumé with dynamic Tera templates***
+
+**Forked from**: [cx48/BelResume](https://github.com/cx48/BelResume)
+**This Fork**: [danielbodnar/bodnar-resume](https://github.com/danielbodnar/bodnar-resume)
+
+> This is a forked and heavily modified version of the original BelResumé theme, featuring dynamic Tera templates and config-driven content management.
+
+## Major Enhancements
+
+This fork adds significant improvements over the original:
+
+- ✅ **Dynamic Tera Templates** - All content is now managed through `config.toml` using Tera templating engine
+- ✅ **Config-Driven Content** - No HTML editing required - all resume data lives in the `[extra]` section
+- ✅ **Full-Width Fluid Layout** - Removed width constraints for a modern, responsive design
+- ✅ **Improved Maintainability** - Update your resume by editing TOML, not HTML
+- ✅ **Loop-Based Rendering** - Add/remove entries by modifying arrays in config
 
 Powered by [Zola](https://getzola.org/). Styled with Tailwind CSS & Font Awesome
-
-> “Bel” in French means beautiful — this is your beautiful resumé!
 
 ## Preview
 
@@ -41,20 +54,29 @@ Powered by [Zola](https://getzola.org/). Styled with Tailwind CSS & Font Awesome
 
 1. **Install Zola**: [https://getzola.org/documentation/getting-started/installation/](https://getzola.org/documentation/getting-started/installation/) 
 
-2. **Clone repository**:
+2. **Clone this fork**:
    ```bash
-   git clone https://github.com/cx48/BelResume
-   cd BelResume
+   git clone https://github.com/danielbodnar/bodnar-resume
+   cd bodnar-resume
    ```
 
-3. **Serve locally**:
+   Or use as a Zola theme:
+   ```bash
+   cd themes
+   git clone https://github.com/danielbodnar/bodnar-resume
+   ```
+
+3. **Configure your resume**:
+   Edit the `[extra]` section in `config.toml` with your resume data (see Customization Guide below)
+
+4. **Serve locally**:
    ```bash
    zola serve
    ```
 
-   After making necessary changes to HTML files present under `partials/` visit [http://127.0.0.1:1111](http://127.0.0.1:1111)
+   Visit [http://127.0.0.1:1111](http://127.0.0.1:1111) to preview your resume
 
-4. **Build static site**:
+5. **Build static site**:
    ```bash
    zola build
    ```
@@ -97,78 +119,118 @@ Zola will build and serve from the `public/` folder automatically on every push
 
 ## Customization Guide
 
-To update your resume, simply open the required HTML file under `partials/` and modify it as per your requirement
+**⚠️ This fork uses dynamic templates!** Unlike the original BelResumé, you do **NOT** need to edit HTML files. All content is managed through `config.toml`.
 
-### 1. **config.toml**  
-Update site-wide metadata:
+### Update Your Resume Content
+
+Edit the `[extra]` section in your site's root `config.toml`:
+
+#### 1. **Personal Information**
 ```toml
-title = "John Doe"
-description = "Senior Software Engineer"
-base_url = "https://yourdomain.com"
+[extra]
+name = "John Doe"
+job_title = "Senior Software Engineer"
+bio = "Your professional summary"
+email = "john@example.com"
+phone = "(555) 123-4567"
+location = "San Francisco, CA"
+website = "https://johndoe.com"
 ```
 
-### 2. **partials/header.html**
-Edit your name, role, email, phone, location, LinkedIn link. Example:
-```html
-<h1 class="text-3xl font-bold">John Doe</h1>
-<h2 class="text-xl text-[var(--primary)] font-semibold">Senior Software Engineer</h2>
+#### 2. **Work Experience**
+```toml
+[[extra.experience]]
+title = "Senior Developer"
+company = "Tech Company"
+start_date = "2020"
+end_date = "Present"
+achievements = [
+    "Improved system performance by 30%",
+    "Led team of 5 engineers"
+]
 ```
 
-### 3. **partials/experience.html**
-Replace job titles, companies, durations, and bullet points.
-```html
-<h3 class="font-semibold">Senior Developer</h3>
-<span>2020–Present</span>
-<ul>
-  <li>Improved system performance by 30%</li>
-</ul>
+#### 3. **Skills**
+```toml
+[[extra.skills]]
+name = "JavaScript"
+level = 95  # Percentage (0-100)
 ```
 
-### 4. **partials/education.html**
-List your degrees, schools, GPA or honors:
-```html
-<h3>Master of CS</h3>
-<p>Stanford University — GPA: 3.9</p>
+#### 4. **Projects/Interests**
+```toml
+[[extra.projects]]
+title = "E-commerce Platform"
+description = "Built scalable shopping platform"
+technologies = ["React", "Node.js", "PostgreSQL"]
 ```
 
-### 5. **partials/projects.html**
-List project names, stacks used, short descriptions.
-```html
-<h3>E-commerce Platform</h3>
-<span class="tag">React</span> <span class="tag">Node.js</span>
+#### 5. **Education**
+```toml
+[[extra.education]]
+title = "Master of CS"
+institution = "Stanford University"
+start_date = "2015"
+end_date = "2017"
+description = "GPA: 3.9 — Focus on distributed systems"
 ```
 
-### 6. **partials/skills.html**
-Update skill bars by adjusting the width in `style="width: 90%"`.
-```html
-<h3>JavaScript</h3>
-<div class="progress" style="width: 95%"></div>
+#### 6. **Certifications**
+```toml
+[[extra.certifications]]
+title = "AWS Certified Architect"
+description = "Amazon — 2022"
 ```
 
-### 7. **partials/certifications.html**
-List certificates with name, organization, and date:
-```html
-<h3>AWS Certified Architect</h3>
-<p>Amazon – 2022</p>
+#### 7. **Languages**
+```toml
+[[extra.languages]]
+name = "English"
+level = "Native"
+proficiency = 100  # Percentage
 ```
 
-### 8. **partials/languages.html**
-Change language names, levels, and progress widths:
-```html
-<span>English</span> <span>Native</span>
-<div style="width: 100%"></div>
+#### 8. **Awards**
+```toml
+[[extra.awards]]
+title = "Best Hackathon Project"
+description = "DefCon 2025"
 ```
 
-### 9. **partials/awards.html**
-Highlight awards with name and source:
-```html
-<h3>Best Hackathon Project</h3>
-<p>DefCon 2025</p>
-```
+### Template Architecture
 
-## Get in Touch
+All partials are now dynamic Tera templates:
 
-Have feedback, questions, or just want to say hello?  
-Feel free to [open an issue](https://github.com/cx48/BelResume/issues) or reach out directly:
+| Template | Data Source | Type |
+|----------|-------------|------|
+| `header.html` | `config.extra.name`, `config.extra.email`, etc. | Variables |
+| `experience.html` | `config.extra.experience` | Loop (`{% for %}`) |
+| `projects.html` | `config.extra.projects` | Loop (`{% for %}`) |
+| `skills.html` | `config.extra.skills` | Loop (`{% for %}`) |
+| `education.html` | `config.extra.education` | Loop (`{% for %}`) |
+| `certifications.html` | `config.extra.certifications` | Loop (`{% for %}`) |
+| `languages.html` | `config.extra.languages` | Loop (`{% for %}`) |
+| `awards.html` | `config.extra.awards` | Loop (`{% for %}`) |
 
-> Check my GitHub profile for contact links
+## Credits & Contributing
+
+This theme is a fork of the excellent [BelResumé](https://github.com/cx48/BelResume) by [cx48](https://github.com/cx48).
+
+### Original Theme
+- **Original Author**: cx48
+- **Original Repository**: [cx48/BelResume](https://github.com/cx48/BelResume)
+- **Original Issues**: [Report issues with original theme](https://github.com/cx48/BelResume/issues)
+
+### This Fork
+- **Fork Maintainer**: Daniel Bodnar
+- **Fork Repository**: [danielbodnar/bodnar-resume](https://github.com/danielbodnar/bodnar-resume)
+- **Fork Issues**: [Report issues with dynamic template features](https://github.com/danielbodnar/bodnar-resume/issues)
+
+### Contributing
+
+Contributions are welcome! If you'd like to improve the dynamic templating features or fix bugs:
+1. Fork [danielbodnar/bodnar-resume](https://github.com/danielbodnar/bodnar-resume)
+2. Create a feature branch
+3. Submit a pull request
+
+For issues with the original theme design or core features, please report them to the [original repository](https://github.com/cx48/BelResume/issues).
